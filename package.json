@@ -1,9 +1,10 @@
 {
   "name": "drake-bot",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "homepage": "https://github.com/lorof/drake-bot#readme",
   "scripts": {
     "start": "cross-env NODE_ENV=production node ./dist/main.js",
     "dev": "cross-env NODE_ENV=development nodemon --exec ts-node ./example/main.ts",

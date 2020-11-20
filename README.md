@@ -12,18 +12,40 @@ yarn add drake-bot
 
 ## Example usage
 
-```js
+#### `allowed-role.ts`
+```ts
+import { defineMiddleware } from 'drake-bot'
+
+const rolesMap = {
+  admin: '640496359622836245',
+  moderator: '740396359624836245'
+}
+
+export const allowedRole = (role) => defineMiddleware((message, _, next) => {
+  if (message.member.roles.cache.has(rolesMap[role])) {
+    next()
+  }
+})
+```
+
+#### `ping.ts`
+```ts
+import { defineCommand } from 'drake-bot'
+import { allowedRole } from './allowed-role'
+
+export const ping = defineCommand('ping')(allowedRole('admin'), (message) => {
+  message.reply('pong')
+})
+```
+
+```ts
 import { Client } from 'discord.js'
 import {
   createApp,
   defaultMiddlewares,
   defineCommand
 } from 'drake-bot'
-
-const ping = defineCommand('ping')((message) => {
-  message.reply('pong')
-})
-
+import { ping } from './ping'
 
 const app = createApp(Client, {
   commands: [ping],

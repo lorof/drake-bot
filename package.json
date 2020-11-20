@@ -1,7 +1,7 @@
 {
   "name": "drake-bot",
   "version": "1.0.1",
-  "description": "",
+  "description": "An Express-like command library for discord.js.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "homepage": "https://github.com/lorof/drake-bot#readme",

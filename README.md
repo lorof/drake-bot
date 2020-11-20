@@ -38,6 +38,7 @@ export const ping = defineCommand('ping')(allowedRole('admin'), (message) => {
 })
 ```
 
+#### `bot.ts`
 ```ts
 import { Client } from 'discord.js'
 import {

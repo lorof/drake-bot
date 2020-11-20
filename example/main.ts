@@ -1,11 +1,10 @@
 import { Client } from 'discord.js'
 
-import { createApp, defaultMiddlewares } from '../src'
+import { createApp } from '../src'
 import { ping } from './ping'
 
 const app = createApp(Client, {
   commands: [ping],
-  middlewares: [...defaultMiddlewares],
 })
 
 app.on('ready', () => {

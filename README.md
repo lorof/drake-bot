@@ -16,12 +16,14 @@ yarn add drake-bot
 ```ts
 import { defineMiddleware } from 'drake-bot'
 
-const rolesMap = {
+type RoleEnum = 'admin' | 'moderator'
+
+const rolesMap: Record<RoleEnum, string> = {
   admin: '640496359622836245',
   moderator: '740396359624836245'
 }
 
-export const allowedRole = (role) => defineMiddleware((message, _, next) => {
+export const allowedRole = (role: RoleEnum) => defineMiddleware((message, _, next) => {
   if (message.member.roles.cache.has(rolesMap[role])) {
     next()
   }

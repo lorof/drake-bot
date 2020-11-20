@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "module": "es2020",
+    "module": "commonjs",
     "allowJs": true,
     "declaration": true,
     "outDir": "dist",
@@ -10,6 +10,7 @@
     "noImplicitAny": true,
     "strictNullChecks": true,
     "alwaysStrict": true,
+    "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "skipLibCheck": true,

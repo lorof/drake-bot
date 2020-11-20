@@ -23,11 +23,12 @@ const rolesMap: Record<RoleEnum, string> = {
   moderator: '740396359624836245'
 }
 
-export const allowedRole = (role: RoleEnum) => defineMiddleware((message, _, next) => {
-  if (message.member.roles.cache.has(rolesMap[role])) {
-    next()
-  }
-})
+export const allowedRole = (role: RoleEnum) =>
+  defineMiddleware((message, _, next) => {
+    if (message.member.roles.cache.has(rolesMap[role])) {
+      next()
+    }
+  })
 ```
 
 #### `ping.ts`
@@ -35,9 +36,26 @@ export const allowedRole = (role: RoleEnum) => defineMiddleware((message, _, nex
 import { defineCommand } from 'drake-bot'
 import { allowedRole } from './allowed-role'
 
+// per command middleware
 export const ping = defineCommand('ping')(allowedRole('admin'), (message) => {
   message.reply('pong')
 })
+```
+
+#### `mute-clown.ts`
+```ts
+import { defineMiddleware } from 'drake-bot'
+
+export const muteClown = (target: string) =>
+  defineMiddleware((message, _, next) => {
+    if (message.member.id === target) {
+      const muteRole = message.guild.roles.find(role => role.name === "mute")
+
+      message.member.roles.addRole(muteRole.id)
+    }
+
+    next()
+  })
 ```
 
 #### `bot.ts`
@@ -49,11 +67,19 @@ import {
   defineCommand
 } from 'drake-bot'
 import { ping } from './ping'
+import { muteClown } from './mute-clown'
 
 const app = createApp(Client, {
   commands: [ping],
-  middlewares: [...defaultMiddlewares],
+  // global middlewares
+  middlewares: [...defaultMiddlewares, muteClown('415237965359349770')],
 })
+
+// or you can add global middleware like that
+app.use(muteClown('415237965359349770'))
+
+// set prefix default !
+app.setPrefix('.')
 
 app.on('ready', () => {
   console.log(`Logged in as ${app.client.user?.username}`)

@@ -50,5 +50,7 @@ export const runHandlersQueue = async (
     })
   }
 
+  if (!canNext) return
+
   return command
 }

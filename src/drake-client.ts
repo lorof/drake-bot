@@ -38,6 +38,8 @@ export class DrakeClient {
       this.client
     )
 
+    if (!command) return
+
     runHandlersQueue(
       message,
       this.commandManager.getCommandByName(command),
